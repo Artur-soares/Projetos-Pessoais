@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import backgroundImage from "../../assets/fundo.png"
 
 export const Display = styled.div`
-background-color:#75e7dc;
+background-image: url(${backgroundImage});
+background-size: cover;
 width:100vw;
 height:100vh;
 display:flex;
@@ -9,15 +11,40 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 
+.play{
+    display:flex;
+    background-color:#57dbca;
+    width:350px;
+    height:90px;
+    font-size:70px;
+    border-radius:100px ;
+    box-shadow:2px 3px black;
+    font-family:"Vanilla Caramel";
+    align-items:center;
+    justify-content:center;
+
+    &:hover{
+        background-color:#3acfb8;
+    }
+}
+
 .config{
     position:fixed;
-    top:40px;
+    background-color:#57dbca;
+    top:20px;
     right:40px;
+    height:60px;
+    width:60px;
+    border-radius:10px;
 }
 .sound{
+    background-color:#57dbca;
     position:fixed;
-    top:40px;
-    right:90px;
+    top:20px;
+    right:110px;
+    border-radius:10px;
+    height:60px;
+    width:60px;
 }
     
 
@@ -37,9 +64,16 @@ img{
 }
 
 .visible{
+    background-color:#57dbca;
     position:fixed;
-    top:40px;
-    right:90px;
+    top:20px;
+    right:110px;
+    height:60px;
+    width:60px;
+    border-radius:10px;
+    img{
+        width:30px;
+    }
 }
 .invisible{
     visibility:hidden;
@@ -66,7 +100,7 @@ export const Settings = styled.div`
     align-items:center;
     justify-content:center;
     background-color:#3acfb8;
-    z-index:1;
+    z-index:2;
     top:50%;
     left:50%;
     border-radius:10px;
@@ -84,8 +118,10 @@ export const Settings = styled.div`
 
     .sound{
         position:absolute;
-        top:30%;
-        left:28%;
+        background-color:#3acfb8;
+        top:25%;
+        right:0px;
+        width:100%;
     }
 
     .contact{
@@ -113,4 +149,22 @@ export const StyledInput = styled.input`
         width: 20px;
         height: 20px;
     }
+`
+
+export const Game = styled.div`
+    position:fixed;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background-color:#3acfb8;
+    z-index:1;
+    top:50%;
+    left:50%;
+    border-radius:10px;
+    border:5px black dashed;
+    height:100%;
+    width:600px;
+    transform:translate(-50%,-50%);
+
 `

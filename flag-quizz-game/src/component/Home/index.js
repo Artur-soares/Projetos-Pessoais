@@ -6,7 +6,8 @@ import SoundOn from '../../assets/sound-image.png'
 import SoundOff from '../../assets/sound-off-image.png'
 import Wrench from '../../assets/wrench-image.png'
 import { useState } from 'react'
-import { Display, Mid, Row, Settings, StyledInput } from './style'
+import GameComponent from './Game/index.js'
+import { Display, Game, Mid, Row, Settings, StyledInput } from './style'
 
 const HomeComponent = () => {
 
@@ -14,9 +15,21 @@ const [isPlaying, setIsPlaying] = useState(false)
 const [showSetting, setShowSetting] = useState(false)
 const [sound, setSound] = useState(true)
 const [showSound, setShowSound] = useState(true)
-const [flagCount, setFlagCount] = useState(20);
 const [volume, setVolume] = useState(50);
+const [showGame, setShowGame] = useState(false);
+//FLAG STATES 
+const [flagCount, setFlagCount] = useState(20);
+const [flagCountCorrect, setFlagCountCorrect] = useState(0);
+const [flagOptions, setFlagOptions] = useState([
+  { id: 1, flag: 'flag1.png', correct: false },
+  { id: 2, flag: 'flag2.png', correct: false },
+]);
 
+const handleShowGame = () => {
+  if(isPlaying===true){
+    showGame(true)
+  }
+}
 
 const handleChange = (event) => {
   setFlagCount(event.target.value);
@@ -104,8 +117,11 @@ const handleShowSound = () => {
       </Row>
 
       <Mid>
-        <p onClick={handleClick}>Jogar</p>
-        {isPlaying ? <p>Você está jogando!</p> : <p>Você não está jogando</p>}
+        {isPlaying ? 
+        <GameComponent flagCount={flagCount}>
+
+        </GameComponent> : 
+        <button className='play' onClick={handleClick}>Jogar</button>}
       </Mid>
       <Row className='footer'>
         <img  src={Github} alt="github logo"/>
