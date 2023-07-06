@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Game } from "./style";
+import { Game, GameOver } from "./style";
 import Afghanistan from "../../../assets/flags/flag-of-Afghanistan.png";
 import Albania from "../../../assets/flags/flag-of-Albania.png";
 import Algeria from "../../../assets/flags/flag-of-Algeria.png";
@@ -198,7 +198,7 @@ import Vietnam from "../../../assets/flags/flag-of-Vietnam.png";
 import Yemen from "../../../assets/flags/flag-of-Yemen.png";
 import Zambia from "../../../assets/flags/flag-of-Zambia.png";
 import Zimbabwe from "../../../assets/flags/flag-of-Zimbabwe.png";
-
+import Sound from "../../../assets/audio/mouse-click-sound.mp3"
 
 
 
@@ -209,7 +209,7 @@ const GameComponent = () => {
     { name: "Algeria", fileName: Algeria },
     { name: "Andorra", fileName: Andorra },
     { name: "Angola", fileName: Angola },
-    { name: "AntiguaandBarbuda", fileName: AntiguaAndBarbuda },
+    { name: "Antigua and Barbuda", fileName: AntiguaAndBarbuda },
     { name: "Argentina", fileName: Argentina },
     { name: "Armenia", fileName: Armenia },
     { name: "Australia", fileName: Australia },
@@ -225,31 +225,31 @@ const GameComponent = () => {
     { name: "Benin", fileName: Benin },
     { name: "Bhutan", fileName: Bhutan },
     { name: "Bolivia", fileName: Bolivia },
-    { name: "BosniaandHerzegovina", fileName: BosniaAndHerzegovina },
+    { name: "Bosnia and Herzegovina", fileName: BosniaAndHerzegovina },
     { name: "Botswana", fileName: Botswana },
     { name: "Brazil", fileName: Brazil },
     { name: "Brunei", fileName: Brunei },
     { name: "Bulgaria", fileName: Bulgaria },
-    { name: "BurkinaFaso", fileName: BurkinaFaso },
+    { name: "Burkina Faso", fileName: BurkinaFaso },
     { name: "Burundi", fileName: Burundi },
-    { name: "CaboVerde", fileName: CaboVerde },
+    { name: "Cabo Verde", fileName: CaboVerde },
     { name: "Cambodia", fileName: Cambodia },
     { name: "Cameroon", fileName: Cameroon },
     { name: "Canada", fileName: Canada },
-    { name: "CentralAfricanRepublic", fileName: CentralAfricanRepublic },
+    { name: "Central African Republic", fileName: CentralAfricanRepublic },
     { name: "Chad", fileName: Chad },
     { name: "Chile", fileName: Chile },
     { name: "China", fileName: China },
     { name: "Colombia", fileName: Colombia },
     { name: "Comoros", fileName: Comoros },
     { name: "Congo", fileName: Congo },
-    { name: "DemocraticRepublicOfTheCongo" , fileName: DemocraticRepublicOfTheCongo},
-    { name: "CostaRica", fileName: CostaRica },
-    { name: "CotedIvoire", fileName: CotedIvoire },
+    { name: "Democratic Republic Of The Congo" , fileName: DemocraticRepublicOfTheCongo},
+    { name: "Costa Rica", fileName: CostaRica },
+    { name: "Cote d'Ivoire", fileName: CotedIvoire },
     { name: "Croatia", fileName: Croatia },
     { name: "Cuba", fileName: Cuba },
     { name: "Cyprus", fileName: Cyprus },
-    { name: "CzechRepublic", fileName: CzechRepublic },
+    { name: "Czech Republic", fileName: CzechRepublic },
 { name: "Denmark", fileName: Denmark },
 { name: "Djibouti", fileName: Djibouti },
 { name: "Dominica", fileName: Dominica },
@@ -307,7 +307,7 @@ const GameComponent = () => {
 { name: "Liechtenstein", fileName: Liechtenstein },
 { name: "Lithuania", fileName: Lithuania },
 { name: "Luxembourg", fileName: Luxembourg },
-{ name: "NorthMacedonia", fileName: NorthMacedonia },
+{ name: "North Macedonia", fileName: NorthMacedonia },
 { name: "Madagascar", fileName: Madagascar },
 { name: "Malawi", fileName: Malawi },
 { name: "Malaysia", fileName: Malaysia },
@@ -410,7 +410,12 @@ const GameComponent = () => {
     const [flagCountCorrect, setFlagCountCorrect] = useState(0);
     const [options, setOptions] = useState([]);
     const [round, setRound] = useState(1);
-    const [maxRounds, setMaxRounds] = useState(20);
+    const [maxRound, setMaxRound] = useState(21);
+
+
+      const handleReloadClick = () => {
+        window.location.reload(); // Recarrega a página
+      };
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * flags.length);
@@ -428,37 +433,47 @@ const GameComponent = () => {
     }
     return options.sort(() => Math.random() - 0.5);
   };
+  const playSound = () => {
+    const audio = new Audio(Sound);
+    audio.play();
+  };
 
   const handleFlagClick = flag => {
     if (flag.name === currentFlag.name) {
         setFlagCountCorrect(prevCount => prevCount + 1);
-        setRound(round + 1)
+        setRound(round + 1);
+        playSound(Sound);
     } else {
-        
+        playSound(Sound);
         setRound(round + 1);
     }
     const randomIndex = Math.floor(Math.random() * flags.length);
     setCurrentFlag(flags[randomIndex]);
     setOptions(getRandomOptions(flags, flags[randomIndex]));
   };
+
+
+  if (round === maxRound) {
+    return (
+      <GameOver>
+        <h5>Fim de Jogo</h5>
+        <p>Você acertou <u>{flagCountCorrect}</u> países de <u>20</u></p>
+        <button onClick={handleReloadClick}>Menu</button>
+      </GameOver>
+    );
+  }
   
   return (
     <Game>
-        
-
-
         <h6>Round {round}</h6>
           {currentFlag && (
-      <img src={currentFlag.fileName} alt={currentFlag.name} />
+      <img src={currentFlag.fileName} alt={currentFlag.name} style={{ width: '450px', height: '250px' }}  />
     )}
     {options.map(flag => (
       <button key={flag.name} onClick={() => handleFlagClick(flag)}>
         {flag.name}
       </button>
     ))}
-
-
-    
     </Game>
   );
 };

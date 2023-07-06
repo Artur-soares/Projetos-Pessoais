@@ -30,15 +30,12 @@ justify-content:center;
 
 .config{
     position:fixed;
-    background-color:#57dbca;
-    top:20px;
+    top:24px;
     right:40px;
-    height:60px;
-    width:60px;
+    width:48px;
     border-radius:10px;
 }
 .sound{
-    background-color:#57dbca;
     position:fixed;
     top:20px;
     right:110px;
@@ -64,7 +61,6 @@ img{
 }
 
 .visible{
-    background-color:#57dbca;
     position:fixed;
     top:20px;
     right:110px;
@@ -118,21 +114,30 @@ export const Settings = styled.div`
 
     .sound{
         position:absolute;
-        background-color:#3acfb8;
+        background-color:#3acfb8;    
         top:25%;
         right:0px;
         width:100%;
+        font-size:35px;
     }
 
     .contact{
+        display:flex;
+        flex-direction:center;
         position:absolute;
+        gap:5px;
         top:20px;
-        font-size:30px;
+        font-size:25px;
     }
     
     .flagCount{
+        display:flex;
+        flex-direction:row;
         position:absolute;
         bottom:20px;
+    img{
+        width:100px;
+    }
     }
 
     .close{

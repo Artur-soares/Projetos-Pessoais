@@ -48,20 +48,22 @@ const handleShowSound = () => {
   setShowSound(true);
 }
 
+const handleSoundToggle = () => {
+  const audioElements = document.querySelectorAll("audio");
+  audioElements.forEach(audio => {
+    audio.pause();
+  });
+
+  setSound(!sound);
+};
+
+const goToLinkedin = () => {
+  <a href='linkedin.com/in/artur-soares-a5717b262' target={'_blank'} ></a>
+}
+
   return (
     <Display>
       <Row className='header'>
-
-        { sound ? <img className={showSound ? "visible"  : "invisible"} 
-        onClick={() => setSound(!sound)}
-        src={SoundOn} 
-        alt='sound on image'/> : 
-        
-        <img 
-         className='sound'
-        onClick={() => setSound(!sound)} 
-        src={SoundOff} 
-        alt='sound off image'/>}
 
         {showSetting ?    
         
@@ -71,39 +73,13 @@ const handleShowSound = () => {
             onClick={handleShowSound}>X</p>
             <p className='contact'>Contato</p>
           <Mid className='sound'>
-            <label>Volume: {volume}%</label>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={volume}
-              onChange={e => setVolume(e.target.value)}
-            />
+            <p>Obrigado por jogar :)</p>
+            <p>Este projeto foi desenvolvido para fins didáticos e de aperfeiçoamento profissional por Artur.</p>
           </Mid>
           <Mid className='flagCount'>
-            10 bandeiras
-            <input
-              className=''
-              type="checkbox"
-              value="10"
-              checked={flagCount === "10"}
-              onChange={handleChange}
-            />
-            20 bandeiras 
-            <input
-              className=''
-              type="checkbox"
-              value="20"
-              checked={flagCount === "20"}
-              onChange={handleChange}
-            />
-            50 bandeiras
-            <input
-              type="checkbox"
-              value="50"
-              checked={flagCount === "50"}
-              onChange={handleChange}
-            />
+          <a href='https://github.com/Artur-soares' target='_blank' ><img  src={Github} alt="github logo"/></a>
+          <a href='https://criarmeulink.com.br/u/1688575125' target='_blank' ><img src={Email} alt="email logo"/></a>
+          <a href='https://www.linkedin.com/in/artur-soares-a5717b262' target='_blank' ><img src={Linkedin} alt="linkedin logo"/></a>
           </Mid>
         </Settings> :
        
@@ -124,9 +100,15 @@ const handleShowSound = () => {
         <button className='play' onClick={handleClick}>Jogar</button>}
       </Mid>
       <Row className='footer'>
+      <a href='https://github.com/Artur-soares' target='_blank' >
         <img  src={Github} alt="github logo"/>
+      </a>
+        <a href='https://criarmeulink.com.br/u/1688575125' target='_blank' >
         <img src={Email} alt="email logo"/>
-        <img src={Linkedin} alt="linkedin logo"/>
+        </a>
+        <a href='https://www.linkedin.com/in/artur-soares-a5717b262' target='_blank' >
+          <img src={Linkedin} alt="linkedin logo"/>
+        </a>
       </Row>
     </Display>
   )
